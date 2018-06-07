@@ -1,0 +1,149 @@
+<div style="min-height: 950px;" >
+
+  <div class="page-title">
+    <div class="title_left">
+      <h3>แก้ไขแบบทดสอบ</h3>
+    </div>
+    <div class="title_right">
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right top_search">
+            <button ng-click="update()" class="btn btn-success" style="float: right;">อัพเดท</button>
+        </div>
+    </div>
+  </div>
+  <div>
+    <p style="width: 100%; text-align: right; margin-right: 40px; color: red" ng-if="error">{{ error }}</p>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>รายละเอียดข้อสอบ <small>กรุณากรอกให้ครบทุกข้อ</small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br />
+          <form  data-parsley-validate class="form-horizontal form-label-left">
+
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">ชื่อข้อสอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" ng-model="form.name" required="required" class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">วิชา <span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input  ng-model="form.subject" class="form-control col-md-7 col-xs-12" type="text" required="required" name="middle-name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">รหัสวิชา <span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input  ng-model="form.subjectID" class="form-control col-md-7 col-xs-12" type="text" required="required" name="middle-name">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">รายละเอียดเพิ่มเติม <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <textarea rows="2" type="text" ng-model="form.description" required="required" class="form-control col-md-7 col-xs-12"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">เวลาในการทำข้อสอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input type="text" ng-model="form.time" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำถาม <span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group">
+                  <input min="1" max="100"  ng-value="form.question_amount" ng-model="new_question_number" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+                  <span class="input-group-btn">
+                    <button ng-click="change_question_number()" ng-disabled="new_question_number == form.question_amount"  class="btn btn-secondary" type="button">เเก้ไข</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="middle-name" class="control-label col-md-3 col-sm-3 col-xs-12">จำนวนคำตอบ<span class="required">*</span> </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group">
+                  <input min="2" max="5"  ng-value="form.answer_amount" ng-model="new_answer_number" class="form-control col-md-7 col-xs-12" type="number" required="required" name="middle-name">
+                  <span class="input-group-btn">
+                    <button ng-click="change_answer_number()" ng-disabled="new_answer_number == form.answer_amount"  class="btn btn-secondary" type="button">เเก้ไข</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">วันที่สอบ <span class="required">*</span>
+              </label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input datepicker ng-model="form.date" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
+              </div>
+            </div>
+
+            <div class="ln_solid"></div>
+
+          </form>
+        </div>
+      </div>
+
+
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>รายการคำถาม <small>กรุณากรอกให้ครบทุกข้อ</small></h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <!-- End SmartWizard Content -->
+
+            <div class="row" ng-if="show_question($index)" ng-repeat="question in questions track by $index">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div style="margin-bottom: 35px">
+                        <div class="input-group">
+                            <span class="input-group-addon">คำถาม {{ $index + 1 }}</span>
+                            <input type="text" ng-model="question.name" class="form-control" name="msg" placeholder="เพิ่มคำถาม">
+                        </div>
+                        <div class="input-group" ng-repeat="(index, answer) in question.answers">
+                            <span class="input-group-addon">
+                                <input type="radio" ng-model="question.correct" value={{index+1}} ng-change="changeAnswer()" name={{$parent.$index}} aria-label="Checkbox for following text input">
+                            </span>
+                            <span class="input-group-addon">{{ question_label[index] }}</span>
+                            <input type="text" class="form-control"  ng-model="answer.name" aria-label="Text input with checkbox">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    <ul class="pagination" ng-hide="questions.length <= 10">
+                        <li ng-class="{'active': page == 1}" ng-click="click_page(1)" ng-if="questions.length >= 1"><a>1</a></li>
+                        <li ng-class="{'active': page == 2}" ng-click="click_page(2)" ng-if="questions.length >= 11"><a>2</a></li>
+                        <li ng-class="{'active': page == 3}" ng-click="click_page(3)" ng-if="questions.length >= 21"><a>3</a></li>
+                        <li ng-class="{'active': page == 4}" ng-click="click_page(4)" ng-if="questions.length >= 31"><a>4</a></li>
+                        <li ng-class="{'active': page == 5}" ng-click="click_page(5)" ng-if="questions.length >= 41"><a>5</a></li>
+                        <li ng-class="{'active': page == 6}" ng-click="click_page(6)" ng-if="questions.length >= 51"><a>6</a></li>
+                        <li ng-class="{'active': page == 7}" ng-click="click_page(7)" ng-if="questions.length >= 61"><a>7</a></li>
+                        <li ng-class="{'active': page == 8}" ng-click="click_page(8)" ng-if="questions.length >= 71"><a>8</a></li>
+                        <li ng-class="{'active': page == 9}" ng-click="click_page(9)" ng-if="questions.length >= 81"><a>9</a></li>
+                        <li ng-class="{'active': page == 10}" ng-click="click_page(10)" ng-if="questions.length >= 91"><a>10</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>

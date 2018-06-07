@@ -1,0 +1,185 @@
+<div class="">
+  <div class="page-title">
+      <div class="title_left">
+        <h3>
+              นักเรียน
+              <small>
+
+              </small>
+          </h3>
+      </div>
+  </div>
+  <div class="clearfix"></div>
+
+  <div class="x_panel">
+     <div class="x_title">
+       <h2>ระบบคัดกรอง</h2>
+
+       <div class="clearfix"></div>
+     </div>
+     <div class="x_content">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group" style="margin-top: 10px">
+                    <input type="text" class="form-control" placeholder="ชื่อ" ng-model="firstname">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group" style="margin-top: 10px">
+                    <input type="text" class="form-control" placeholder="นามสกุล" ng-model="lastname">
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group" style="margin-top: 10px" >
+                    <select class="form-control" ng-model="level">
+                            <option value="">ระดับชั้น</option>
+                            <option>ประถม</option>
+                            <option>มัธยม</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group" style="margin-top: 10px" >
+                    <select class="form-control" ng-model="grade">
+                            <option value="">ชั้น</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group" style="margin-top: 10px">
+                    <select class="form-control" ng-model="room">
+                        <option value="">ห้องเรียน</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="form-group" style="margin-top: 10px">
+                    <select class="form-control" ng-model="year">
+                        <option value="">ปีการศึกษา</option>
+                        <option>2018</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <button style="margin-top: 10px" class="btn btn-success" ng-click="search()" type="button" >ค้นหา</button>
+            </div>
+         </div>
+     </div>
+
+    <div class="form-group">
+        <div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-10">
+
+        </div>
+    </div>
+   </div>
+
+  <div class="row">
+
+    <div class="clearfix"></div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>ผลลัพธ์ <small></small></h2>
+          <ul class="nav navbar-right panel_toolbox">
+            <li><button style="margin-top: 10px" type="button" class="btn btn-success" ng-click="get_qr()">สร้าง QR CODE</button>
+            </li>
+
+          </ul>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+
+          <p> <code> เลือก นักเรียน</code> ที่ต้องการปริ้น QR CODE</p>
+
+          <table id="example" class="table table-bordered bordered table-striped table-condensed datatable jambo_table bulk_action">
+            <thead>
+              <tr class="headings">
+                <th>
+                  <input type="checkbox" id="check-all" class="flat" ng-model="check_all" ng-change="on_click_all()">
+                </th>
+                <th class="column-title">รหัส </th>
+                <th class="column-title">ขื่อ </th>
+                <th class="column-title">นามสกุล </th>
+                <th class="column-title no-link last"><span class="nobr">Action</span>
+                </th>
+                <th class="bulk-actions" colspan="7">
+                  <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="tbody">
+              <!-- <tr class="even pointer">
+                <td class="a-center ">
+                  <input type="checkbox" class="flat" name="table_records" ng-model="student.is_checked" ng-change="on_click_one(student.is_checked)">
+                </td>
+                <td class=" ">{{ student.slug }}</td>
+                <td class=" ">{{ student.firstname }}</td>
+                <td class=" ">{{ student.lastname }}</td>
+                <td class=" last"><a style="cursor: default" data-toggle="modal" ng-click="view_point(student.slug)" >ดูคะแนน</a>
+                </td>
+              </tr> -->
+            </tbody>
+
+          </table>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">คะแนน</h4>
+                  </div>
+                  <div class="modal-body">
+                      <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>ชื่อข้อสอบ</th>
+                          <th>วิชา</th>
+                          <th>จำนวน</th>
+                          <th>คะแนน</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody ng-repeat="point in points">
+                        <tr>
+                          <td>{{ point.form.name }}</td>
+                          <td>{{ point.form.subject }}</td>
+                          <td>{{ point.form.question_amount }}</td>
+                          <td>{{ point.point }}</td>
+                          <td><a style="cursor: default" ng-click="view_paper(point.form.slug)">ดูกระดาษคำตอบ</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          <!-- <qr text="qr_string" size="150"></qr> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
